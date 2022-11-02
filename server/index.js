@@ -4,6 +4,7 @@ const cors = require("cors");
 const env = require("dotenv").config({ path: "../config.env" });
 const morgan = require("morgan");
 require("./db");
+const helmet = require("helmet");
 
 const app = express();
 const productRouter = require("./routes/productRouter");
@@ -28,7 +29,10 @@ const calculateOrderAmount = (orderItems) => {
 };
 
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(helmet());
 app.use(
   express.json({
     // We need the raw body to verify webhook signatures.
@@ -88,8 +92,8 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 8080;
 
-app.use("/api/products/", productRouter);
-app.use("/api/user", userRouter);
+app.use("/api/", productRouter);
+app.use("/api/", userRouter);
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
