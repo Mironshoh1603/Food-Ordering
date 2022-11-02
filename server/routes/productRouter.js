@@ -30,5 +30,21 @@ router.get("/products-by-categories", async (req, res) => {
     res.status(400).send({ error: err });
   }
 });
+const User = require("../models/userModel");
+
+router.post("/create-user/", async (req, res) => {
+  console.log("mana");
+  const user = await User.create({
+    name: req.body.name,
+    email: req.body.email,
+    // _id: req.body._id,
+  });
+
+  console.log(user);
+  res.status(200).json({
+    data: user,
+  });
+  return;
+});
 
 module.exports = router;

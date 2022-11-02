@@ -93,7 +93,6 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 8080;
 
 app.use("/api/", productRouter);
-app.use("/api/", userRouter);
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
