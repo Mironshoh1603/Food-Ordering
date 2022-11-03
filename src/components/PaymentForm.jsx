@@ -43,7 +43,7 @@ const PaymentForm = () => {
     setLoading(true);
     try {
       const { error: backeEndError, clientSecret } = await fetch(
-        "http://localhost:8080/create-payment-intent",
+        "https://foodorderinguz.herokuapp.com/create-payment-intent",
         {
           method: "POST",
           headers: {
